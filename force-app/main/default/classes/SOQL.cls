@@ -42,9 +42,13 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Contact> getContactsByFirstName () {
     //  The body of the method
-    //}
+    List<Contact> listOfContacts = [SELECT Name, FirstName FROM Contact WHERE FirstName = 'John' WITH USER_MODE];
+    
+    return listOfContacts;
+
+    }
 
     /**
      * Question 3
