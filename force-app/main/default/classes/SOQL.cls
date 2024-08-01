@@ -62,7 +62,7 @@ public with sharing class SOQL {
     List<Contact> listOfContacts = [SELECT Id FROM Contact WHERE LastName IN ('Smith','Jones') WITH USER_MODE];
 
     List<Id> listOfContactIds = new List<Id>();
-    
+
     for (Contact c : listOfContacts) {
         listOfContactIds.add(c.Id);
         System.debug(c.Id);
@@ -80,9 +80,13 @@ public with sharing class SOQL {
      * @return A list of Opportunities with important opportunities fields
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static List<Opportunity> getClosedWonOpportunityCountByAccount (Id id) {
     //  The body of the method
-    //}
+    List<Opportunity> listOfWonOpps = [SELECT AccountId, Amount, CloseDate, Name, Stagename FROM Opportunity WHERE StageName = 'Closed Won' AND AccountId = :id WITH USER_MODE];
+
+
+    return listOfWonOpps;
+    }
 
     /**
      * Question 5
