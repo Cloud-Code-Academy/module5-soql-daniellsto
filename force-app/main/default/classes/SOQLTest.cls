@@ -193,7 +193,7 @@ public with sharing class SOQLTest {
         List<Opportunity> opportunities = SOQL.getOpportunitiesByNameKeyword('Keyword');
 
         // Assert that the number of opportunities returned is correct
-        System.assertEquals(1, opportunities.size(), 'Number of opportunities returned is incorrect.');
+        System.assertEquals(1, opportunities.size(), 'Number of opportunities returned is incorrect4.');
 
         // Assert that the opportunities returned have the correct names
         System.assertEquals('Keyword Opportunity', opportunities[0].Name, 'Opportunity name is incorrect.');
