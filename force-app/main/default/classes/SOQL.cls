@@ -134,9 +134,14 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByEmailDomain method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Contact> getContactsByEmailDomain () {
+    
+    String domain = '%example.com';
+    
+    List<Contact> contactsLists = [SELECT Id,Name, Email FROM Contact WHERE Email LIKE :domain WITH USER_MODE];
+    
+    return contactsLists;
+    }
 
     /**
      * Question 8
