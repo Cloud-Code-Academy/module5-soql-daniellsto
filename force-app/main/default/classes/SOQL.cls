@@ -16,7 +16,7 @@
 * Users of this class can expect to gain a solid understanding of SOQL in Apex and
 * be prepared to handle data retrieval tasks in Salesforce development.
 * 
-* @author Daniel S
+* @author Your Name
 */
 
 public with sharing class SOQL {
@@ -28,9 +28,13 @@ public with sharing class SOQL {
      * @return List of all leads with Id, LastName, Company, Phone, Email
      * Update the corresponding test class and testGetAllLeads method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Lead> getAllLeads () {
+
+        List<Lead> leadsList = [SELECT Id, LastName, Company, Phone, Email FROM Lead WITH USER_MODE];
+        
+        return leadsList;
+   
+       }
 
     /**
      * Question 2
@@ -39,9 +43,13 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Contact> getContactsByFirstName () {
+
+        List<Contact> listOfContacts = [SELECT Name, FirstName FROM Contact WHERE FirstName = 'John' WITH USER_MODE];
+
+        return listOfContacts;
+
+        }
 
     /**
      * Question 3
@@ -50,9 +58,19 @@ public with sharing class SOQL {
      * @return A list of Contact Ids.
      * Update the corresponding test class and testGetContactIdsByLastName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Id> getContactIdsByLastName () {
+
+    List<Contact> listOfContacts = [SELECT Id FROM Contact WHERE LastName IN ('Smith','Jones') WITH USER_MODE];
+
+    List<Id> listOfContactIds = new List<Id>();
+
+    for (Contact c : listOfContacts) {
+        listOfContactIds.add(c.Id);
+        System.debug(c.Id);
+    }
+    
+    return listOfContactIds;
+    }
 
     /**
      * Question 4
@@ -63,9 +81,12 @@ public with sharing class SOQL {
      * @return A list of Opportunities with important opportunities fields
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Opportunity> getClosedWonOpportunityCountByAccount (Id id) {
+    
+    List<Opportunity> listOfWonOpps = [SELECT AccountId, Amount, CloseDate, Name, Stagename FROM Opportunity WHERE StageName = 'Closed Won' AND AccountId = :id WITH USER_MODE];
+    
+    return listOfWonOpps;
+    }
 
     /**
      * Question 5
@@ -74,10 +95,17 @@ public with sharing class SOQL {
      * @return The Integer count of Account records.
      * Update the corresponding test class and testGetAccountCount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
-
+    public static Integer getAccountCount () {
+        // The body of the method
+        // Solution #1
+        // Integer accountTotalCount = [SELECT COUNT() FROM Account WITH USER_MODE];
+        // return accountTotalCount;
+    
+        //#Solution 2
+        AggregateResult[] totalAccCount = [SELECT Count(Id) FROM Account WITH USER_MODE];
+        //return Integer.valueOf(totalAccCount[0].get('expr0'));
+        return (Integer)totalAccCount[0].get('expr0');
+        }
     /**
      * Question 6
      * Update/Uncomment the template code to create a method
