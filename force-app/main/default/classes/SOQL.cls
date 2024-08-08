@@ -180,9 +180,15 @@ public with sharing class SOQL {
      * @return A list of Lead records.
      * Update the corresponding test class and testGetLeadsBySourceOrTitle method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}    
+    public static List<Lead> getLeadsBySourceOrTitle (String source, String title) {
+
+        //String s = '%' + source + '%';
+        String t = '%' + title + '%';    
+        
+        List<Lead> leadList = [SELECT Id, LeadSource, Title, LastName, Company, Phone, Email FROM Lead WHERE LeadSource = :source OR Title LIKE :t WITH USER_MODE ];
+
+        return leadList;
+    }    
 
     /**
      * Question 11
