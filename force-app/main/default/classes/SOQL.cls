@@ -287,15 +287,16 @@ public with sharing class SOQL {
      * @return A set of Case Ids.
      */
     public static Set<Id> getCaseIdsByAccount(Id accountId) {
-        // Create a set to hold the Case Ids
 
-        // Query the Cases
-        // Loop through each Case and add the Id to the set
-        //for () {
-        //    
-        //}
+        Set<Id> caseIdSet = new Set<Id>();
 
-        return null; // Replace null with the variable you used to store the result
+        List<Case> caseList = [SELECT Id FROM Case WHERE AccountId = :accountId WITH USER_MODE];
+
+        for (Case c : caseList) {
+            caseIdSet.add(c.Id);
+        }
+
+        return caseIdSet; // Replace null with the variable you used to store the result
     }
 
     /**
