@@ -256,7 +256,15 @@ public with sharing class SOQL {
      * @return A list of Contacts
      */
     public static List<Contact> getBirthdateContacts() {
-        return null; // Replace null with the variable you used to store the result
+        List<Contact> birthDateList = [SELECT Id, Birthdate FROM Contact WITH USER_MODE ORDER BY Birthdate DESC LIMIT 3];
+        return birthDateList; // Replace null with the variable you used to store the result
+    }
+    
+    /**
+     * Question 16
+     * Retrieves the first 5 Accounts with the most recent Birthdate.
+
+        return birthDateList; // Replace null with the variable you used to store the result
     }
     
     /**
