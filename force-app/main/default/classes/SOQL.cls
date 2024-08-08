@@ -342,7 +342,10 @@ public with sharing class SOQL {
      * @return An Account record with related Opportunities.
      */
     public static Account getAccountAndOpportunitiesFromAccountId(Id accountId) {
-        return null; // Replace null with the variable you used to store the result
+        
+        Account acc = [SELECT Id, Name, (SELECT Id, Name FROM Opportunities WHERE AccountId = :accountId) FROM Account WITH USER_MODE];
+        System.debug(acc);
+        return acc; // Replace null with the variable you used to store the result
     }
 
     /**
