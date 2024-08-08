@@ -266,14 +266,17 @@ public with sharing class SOQL {
 
         return birthDateList; // Replace null with the variable you used to store the result
     }
+    */
     
     /**
      * Question 16
      * Retrieves the Cases in the Open Status, ordered by CreatedDate, and limited to 10 records with an offset of 5.
      * @return A list of Cases
      */
-    public static List<Case> getCasesWithStatus() {
-        return null; // Replace null with the variable you used to store the result
+    public static List<Case> getCasesWithStatus(String status) {
+
+        List<Case> caseList = [SELECT Id, CreatedDate FROM Case WHERE Status = :status WITH USER_MODE LIMIT 10 OFFSET 5];
+        return caseList; // Replace null with the variable you used to store the result
     }
 
     /**

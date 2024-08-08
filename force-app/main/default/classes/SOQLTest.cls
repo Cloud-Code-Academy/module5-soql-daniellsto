@@ -418,7 +418,7 @@ public with sharing class SOQLTest {
         insert cases;
     
         // Call the method to test
-        List<Case> returnedCases = SOQL.getCasesWithStatus();
+        List<Case> returnedCases = SOQL.getCasesWithStatus('Open');
     
         // Assert that the number of cases returned is correct
         System.assertEquals(10, returnedCases.size(), 'Number of cases returned is incorrect.');
