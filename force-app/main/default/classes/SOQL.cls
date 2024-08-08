@@ -29,12 +29,20 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetAllLeads method to cover this method
      */
     public static List<Lead> getAllLeads () {
+<<<<<<< HEAD
 
         List<Lead> leadsList = [SELECT Id, LastName, Company, Phone, Email FROM Lead WITH USER_MODE];
         
         return leadsList;
    
        }
+=======
+     List<Lead> leadsList = [SELECT Id, LastName, Company, Phone, Email FROM Lead WITH USER_MODE];
+     
+     return leadsList;
+
+    }
+>>>>>>> f6f661aae27bab9662f89e1d796f738ac6fccc60
 
     /**
      * Question 2
@@ -44,12 +52,21 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
     public static List<Contact> getContactsByFirstName () {
+<<<<<<< HEAD
 
         List<Contact> listOfContacts = [SELECT Name, FirstName FROM Contact WHERE FirstName = 'John' WITH USER_MODE];
 
         return listOfContacts;
 
         }
+=======
+    //  The body of the method
+    List<Contact> listOfContacts = [SELECT Name, FirstName FROM Contact WHERE FirstName = 'John' WITH USER_MODE];
+    
+    return listOfContacts;
+
+    }
+>>>>>>> f6f661aae27bab9662f89e1d796f738ac6fccc60
 
     /**
      * Question 3
@@ -59,7 +76,11 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetContactIdsByLastName method to cover this method
      */
     public static List<Id> getContactIdsByLastName () {
+<<<<<<< HEAD
 
+=======
+    //  The body of the method
+>>>>>>> f6f661aae27bab9662f89e1d796f738ac6fccc60
     List<Contact> listOfContacts = [SELECT Id FROM Contact WHERE LastName IN ('Smith','Jones') WITH USER_MODE];
 
     List<Id> listOfContactIds = new List<Id>();
@@ -82,9 +103,16 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
     public static List<Opportunity> getClosedWonOpportunityCountByAccount (Id id) {
+<<<<<<< HEAD
     
     List<Opportunity> listOfWonOpps = [SELECT AccountId, Amount, CloseDate, Name, Stagename FROM Opportunity WHERE StageName = 'Closed Won' AND AccountId = :id WITH USER_MODE];
     
+=======
+    //  The body of the method
+    List<Opportunity> listOfWonOpps = [SELECT AccountId, Amount, CloseDate, Name, Stagename FROM Opportunity WHERE StageName = 'Closed Won' AND AccountId = :id WITH USER_MODE];
+
+
+>>>>>>> f6f661aae27bab9662f89e1d796f738ac6fccc60
     return listOfWonOpps;
     }
 
@@ -96,6 +124,7 @@ public with sharing class SOQL {
      * Update the corresponding test class and testGetAccountCount method to cover this method
      */
     public static Integer getAccountCount () {
+<<<<<<< HEAD
         // The body of the method
         // Solution #1
         // Integer accountTotalCount = [SELECT COUNT() FROM Account WITH USER_MODE];
@@ -106,6 +135,19 @@ public with sharing class SOQL {
         //return Integer.valueOf(totalAccCount[0].get('expr0'));
         return (Integer)totalAccCount[0].get('expr0');
         }
+=======
+    // The body of the method
+    // Solution #1
+    // Integer accountTotalCount = [SELECT COUNT() FROM Account WITH USER_MODE];
+    // return accountTotalCount;
+
+    //#Solution 2
+    AggregateResult[] totalAccCount = [SELECT Count(Id) FROM Account WITH USER_MODE];
+    //return Integer.valueOf(totalAccCount[0].get('expr0'));
+    return (Integer)totalAccCount[0].get('expr0');
+    }
+
+>>>>>>> f6f661aae27bab9662f89e1d796f738ac6fccc60
     /**
      * Question 6
      * Update/Uncomment the template code to create a method
