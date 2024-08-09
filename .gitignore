@@ -49,3 +49,5 @@ $RECYCLE.BIN/
 .idea/
 .history/
 IlluminatedCloud/
+scripts/soql/account.soql
+scripts/
