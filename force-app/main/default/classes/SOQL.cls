@@ -376,20 +376,33 @@ public with sharing class SOQL {
      */
     public static List<Account> findAccountsByLeadEmailDomains(Set<Id> leadIds) {
         // Query the Leads
+        List<Lead> leadList = [SELECT Id, Email FROM Lead WHERE Id IN :leadIds WITH USER_MODE];
 
         // Create a set of email domains from the Leads
+        Set<String> leadEmailDomains = new Set<String>();
 
         // Loop through each Lead
-
             // Get the email from the Lead
-
             // Check if the email is not null
+            // Add the email domain to the set
+        for (Lead lead : leadList) {
+            if (lead.email != null) {
+                //leadEmailDomains.add(lead.Email.substring(0, lead.Email.lastIndexOf('@')));
+                String domain = lead.Email.substring(lead.Email.indexOf('@') + 1).toLowerCase();
+                leadEmailDomains.add(domain);
+            }
+        }        
+    
+        List<String> domainConditions = new List<String>();
 
-                // Add the email domain to the set
+        for (String domain : leadEmailDomains) {
+            domainConditions.add('Website LIKE \'%' + domain + '%\'');
+        }
+    
+        String query = 'SELECT Id, Website FROM Account WHERE ' + String.join(domainConditions, ' OR ') + ' WITH USER_MODE';
+        List<Account> accList = Database.query(query, AccessLevel.USER_MODE); //This requires additional method to escape the quotes and prevent SOQL injection!?
 
-        
-        // Query the Accounts
-        return null; // Replace null with the variable you used to store the result
+        return accList; // Replace null with the variable you used to store the result
     }
 
     /**
