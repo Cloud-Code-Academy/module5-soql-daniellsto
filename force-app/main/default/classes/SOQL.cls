@@ -415,18 +415,33 @@ public with sharing class SOQL {
      */
     public static void cloneLineItems(Id origOppId, List<Id> cloneOppIds) {
         // Query the original Opportunity Line Items
+        List<OpportunityLineItem> origOppLineItems = [SELECT Id, Quantity, PricebookEntryId, Product2Id, TotalPrice, UnitPrice From OpportunityLineItem WHERE OpportunityId = :origOppId WITH USER_MODE];
 
         // Create a list to hold the new line items
+        List<OpportunityLineItem> newOppLineItems = new List<OpportunityLineItem>();
 
         // Generate a random number between 1 and 3
+        Integer randomNumber = Integer.valueOf(Math.random() * 3) + 1;
 
         // Loop through each cloned Opportunity Id
-
             // Loop through each original line item
-
                 // Clone the original line item and add the random number to the quantity
+        for (Id cloneOppId : cloneOppIds) {
+            for (OpportunityLineItem o : origOppLineItems) {
+                newOppLineItems.add(new OpportunityLineItem(
+                    OpportunityId = cloneOppId,
+                    Quantity = o.Quantity + randomNumber,
+                    //TotalPrice = o.TotalPrice,
+                    UnitPrice = o.UnitPrice,
+                    Product2Id = o.Product2Id,
+                    PricebookEntryId = o.PricebookEntryId
+                ));
+            }
+        }
+
 
         // Insert the new line items
+        insert as User newOppLineItems;
     }
     
     /**
